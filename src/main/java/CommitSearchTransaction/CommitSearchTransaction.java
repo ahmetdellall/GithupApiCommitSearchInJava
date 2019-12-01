@@ -125,7 +125,7 @@ public class CommitSearchTransaction {
 		counted.entrySet().stream().forEach(av -> {
 			if (av.getValue().equals(Collections.max(counted.values()))) {
 				System.out.println(
-						"Author :" + av.getKey() + "  " + "The people added maximum commits :" + av.getValue());
+						 "The"+ av.getKey() +" added maximum commits :" + av.getValue());
 			}
 		});
 
@@ -135,7 +135,7 @@ public class CommitSearchTransaction {
 
 		Properties props = new Properties();
 		props.setProperty("login", "cedellalahmet@gmail.com");
-		props.setProperty("password", "WLeynm7M");
+		props.setProperty("password", "*****");
 
 		GitHub gitHub = GitHubBuilder.fromProperties(props).build();
 

@@ -44,7 +44,7 @@ public class JsonReader {
 		//CommitSearchTransaction commitSearchTransaction = new CommitSearchTransaction();
 		//commitSearchTransaction.getAllCommitUrlReader();
 		
-		CommitSearchTransaction.searchCommit("yezyilomo", "django-restql");
+		CommitSearchTransaction.searchCommit("avelino", "awesome-go");
 		//CommitSearchTransaction.example();
 	}
 }
