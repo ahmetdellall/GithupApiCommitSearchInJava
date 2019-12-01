@@ -36,7 +36,7 @@ import org.kohsuke.github.PagedIterable;
 
 public class CommitSearchTransaction {
 
-	final private static int page = 0;
+	 private static int page = 0;
 
 	public static void getMyRepository() throws IOException {
 		GitHubClient client = new GitHubClient();
@@ -51,9 +51,9 @@ public class CommitSearchTransaction {
 		}
 	}
 
-	public static void getCommitNumberOne() throws IOException {
+//	public static void getCommitNumberOne() throws IOException {
 
-	}
+//	}
 
 	public static void getAllCommitUrlReader() throws MalformedURLException, IOException {
 
@@ -85,6 +85,7 @@ public class CommitSearchTransaction {
 		// int total = Arrays.stream(line.split("\"total\":")).skip(1).mapToInt(av ->
 		// Integer.parseInt(av.split(",")[0])).sum();
 		// System.out.println(total);
+		page++;
 	}
 
 	public static void searchCommit(String owner, String repoName) {
