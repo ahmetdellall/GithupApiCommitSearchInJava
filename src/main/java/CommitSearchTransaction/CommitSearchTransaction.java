@@ -98,6 +98,7 @@ public class CommitSearchTransaction {
 		cal.set(2019, 1, 1);
 		Date since = cal.getTime();
 		cal.set(2020, 1, 1);
+		
 		Date until = cal.getTime();
 
 		List<String> getAthur = new ArrayList<>();
