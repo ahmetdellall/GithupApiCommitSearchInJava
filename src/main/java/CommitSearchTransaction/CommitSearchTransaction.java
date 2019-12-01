@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.KeyStore.Entry;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,8 +35,12 @@ import org.kohsuke.github.PagedIterable;
 
 public class CommitSearchTransaction {
 
-	 private static int page = 0;
+	private static int commitId = 0;
+	private static List<String> getAthur = new ArrayList<>();
 
+	/*
+	 * kendi repositolerimi çekmek için kullandýðým metod
+	 */
 	public static void getMyRepository() throws IOException {
 		GitHubClient client = new GitHubClient();
 		client.setCredentials("cedellalahmet@gmail.com", "****");
@@ -51,14 +54,15 @@ public class CommitSearchTransaction {
 		}
 	}
 
-//	public static void getCommitNumberOne() throws IOException {
-
-//	}
+	/*
+	 * github api de bulunan tüm repolarý taramak için kullandýðým metod--- Rate
+	 * limit hatasý çýkýyor.
+	 */
 
 	public static void getAllCommitUrlReader() throws MalformedURLException, IOException {
 
 		HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(
-				"https://api.github.com/repositories?since=" + page).openConnection();
+				"https://api.github.com/repositories?since=" + commitId).openConnection();
 		httpURLConnection.addRequestProperty("User-Agent",
 				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36");
 
@@ -68,7 +72,6 @@ public class CommitSearchTransaction {
 		while ((inputLine = in.readLine()) != null) {
 
 			line += "\n" + inputLine;
-			// System.out.println(inputLine);
 		}
 
 		in.close();
@@ -78,23 +81,25 @@ public class CommitSearchTransaction {
 			searchCommit(owner, repoName);
 		});
 
-		// Arrays.stream(line.split("\"id\":")).skip(1).map(av->
-		// av.split(",")[0]).forEach(av -> {System.out.println(av.valueOf(av.length()));
-		// ;
-		// });
-		// int total = Arrays.stream(line.split("\"total\":")).skip(1).mapToInt(av ->
-		// Integer.parseInt(av.split(",")[0])).sum();
-		// System.out.println(total);
-		page++;
+		if (in.readLine() != null) {
+			List<String> idList = new ArrayList<>();
+			Arrays.stream(line.split("\"id\":")).skip(1).map(av -> av.split(",")[0]).forEach(av -> {
+				idList.add(av);
+			});
+			commitId = Integer.valueOf(idList.get(idList.size() - 1));
+			getAllCommitUrlReader();
+		}
 	}
 
+	/*
+	 * Her gelen repodaki commitleri çeken ve en çok commit atan kiþiyi bulan
+	 * metod..
+	 */
 	public static void searchCommit(String owner, String repoName) {
-		final int size = 50;
 
 		final RepositoryId repo = new RepositoryId(owner, repoName);
 		final String message = "   {0} by {1} on {2}";
 		final CommitService service = new CommitService();
-		int pages = 1;
 		Calendar cal = Calendar.getInstance();
 		cal.set(2019, 1, 1);
 		Date since = cal.getTime();
@@ -102,13 +107,10 @@ public class CommitSearchTransaction {
 
 		Date until = cal.getTime();
 
-		List<String> getAthur = new ArrayList<>();
 		for (Collection<RepositoryCommit> commits : service.pageCommits(repo)) {
-			System.out.println("Commit Page " + pages++);
 			for (RepositoryCommit commit : commits) {
 				Date date = commit.getCommit().getAuthor().getDate();
 				if (date.after(since) && date.before(until)) {
-
 					getAthur.add(commit.getCommit().getAuthor().getName());
 					String sha = commit.getSha().substring(0, 7);
 					String author = commit.getCommit().getAuthor().getName();
@@ -120,18 +122,18 @@ public class CommitSearchTransaction {
 		}
 		Map<String, Long> counted = getAthur.stream()
 				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-//		counted.entrySet().stream().filter(entry -> entry.getValue().equals(Collections.max(counted.values())))
-//				.map(entry -> entry.getKey()).collect(Collectors.toList()).forEach(entry -> System.out.println(entry));
 
 		counted.entrySet().stream().forEach(av -> {
 			if (av.getValue().equals(Collections.max(counted.values()))) {
-				System.out.println(
-						 "The"+ av.getKey() +" added maximum commits :" + av.getValue());
+				System.out.println("The" + av.getKey() + " added maximum commits :" + av.getValue());
 			}
 		});
 
 	}
 
+	/*
+	 * Kendi repomdaki bir repodaki commit miktarýný gösteren ve sýralayan metod.
+	 */
 	public static void example() throws IOException {
 
 		Properties props = new Properties();
