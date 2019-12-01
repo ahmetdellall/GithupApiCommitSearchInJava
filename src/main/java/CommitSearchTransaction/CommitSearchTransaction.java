@@ -40,7 +40,7 @@ public class CommitSearchTransaction {
 
 	public static void getMyRepository() throws IOException {
 		GitHubClient client = new GitHubClient();
-		client.setCredentials("cedellalahmet@gmail.com", "WLeynm7M");
+		client.setCredentials("cedellalahmet@gmail.com", "****");
 		RepositoryService repositoryService = new RepositoryService(client);
 
 		List<Repository> repositories = repositoryService.getRepositories();
