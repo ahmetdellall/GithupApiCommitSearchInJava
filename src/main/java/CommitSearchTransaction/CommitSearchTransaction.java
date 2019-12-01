@@ -98,7 +98,7 @@ public class CommitSearchTransaction {
 		cal.set(2019, 1, 1);
 		Date since = cal.getTime();
 		cal.set(2020, 1, 1);
-		
+
 		Date until = cal.getTime();
 
 		List<String> getAthur = new ArrayList<>();
@@ -121,10 +121,11 @@ public class CommitSearchTransaction {
 				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 //		counted.entrySet().stream().filter(entry -> entry.getValue().equals(Collections.max(counted.values())))
 //				.map(entry -> entry.getKey()).collect(Collectors.toList()).forEach(entry -> System.out.println(entry));
-		
-		counted.entrySet().stream().forEach(av -> { 
+
+		counted.entrySet().stream().forEach(av -> {
 			if (av.getValue().equals(Collections.max(counted.values()))) {
-				System.out.println("Author :"+av.getKey()+"  "+"The people added maximum commits :"+av.getValue());
+				System.out.println(
+						"Author :" + av.getKey() + "  " + "The people added maximum commits :" + av.getValue());
 			}
 		});
 
