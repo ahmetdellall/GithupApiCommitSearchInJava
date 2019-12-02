@@ -9,17 +9,17 @@ public class SearchCommitTransaction {
 	public static void main(String[] args) throws IOException, JSONException {
 
 //		CommitSearchTransaction commitSearchTransaction = new CommitSearchTransaction(); 
-//		commitSearchTransaction.getAllCommitUrlReader(); /* Tüm repoları tarayıp en çok commit atan kişiyi bulan static metod -- Githup api rate limit 5000 sorgudan sonra*/ 
+//		commitSearchTransaction.getAllCommitUrlReader(); /* TÃ¼m repolarÃ½ tarayÃ½p en Ã§ok commit atan kiÃ¾iyi bulan static metod -- Githup api rate limit 5000 sorgudan sonra*/ 
 
-//		CommitSearchTransaction.searchCommit("avelino","awesome-go");
-		/* Herhangi belirli bir repodaki en çok commit atan kişiyi bulan metod */
+		CommitSearchTransaction.searchCommit("avelino","awesome-go");
+		/* Herhangi belirli bir repodaki en Ã§ok commit atan kiÃ¾iyi bulan metod */
 		// CommitSearchTransaction.searchCommit("mojombo", "grit");
-		//  /* Rate limit  uğramamak için el ile seçtiğim birden fazla repoya sorguya atarak iki repoya
-		// commit atan kişinin toplam commit sayısını buluyoruz.*/
+		//  /* Rate limit  uÃ°ramamak iÃ§in el ile seÃ§tiÃ°im birden fazla repoya sorguya atarak iki repoya
+		// commit atan kiÃ¾inin toplam commit sayÃ½sÃ½nÃ½ buluyoruz.*/
 		
 		
 		
 		
-//		 CommitSearchTransaction.example();  /*İlk yapılan kendi repomdaki repoya atılan commit miktarı */
+//		 CommitSearchTransaction.example();  /*Ãlk yapÃ½lan kendi repomdaki repoya atÃ½lan commit miktarÃ½ */
 	}
 }
